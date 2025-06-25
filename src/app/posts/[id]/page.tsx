@@ -16,8 +16,8 @@ export default function PostPage({ params }: Params) {
   }
 
   return (
-    <main className="min-h-screen bg-[#fefae0] p-8">
-      <article className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
+    <main className="min-h-screen p-8">
+      <article className="max-w-3xl mx-auto bg-[#ffffff0a] p-8 rounded-lg shadow-md">
         <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
         <p className="text-gray-700">{post.summary}</p>
       </article>
