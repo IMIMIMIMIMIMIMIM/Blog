@@ -1,5 +1,6 @@
 import "./globals.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "IM",
@@ -13,9 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased bg-[#fefae0] min-h-screen">
+      <body className="antialiased bg-[#111111] text-white min-h-screen">
         <Header />
-        <main>{children}</main>
+        <main className="min-h-screen p-8 flex flex-col">{children}</main>
+        <Footer />
       </body>
     </html>
   );
