@@ -10,11 +10,15 @@ export default function Blog() {
   const router = useRouter();
 
   const selectedSubject = searchParams.get("subject");
-  const subjects = ["NEXT", "REACT", "JAVASCRIPT"];
+  const subjects = ["NEXT", "REACT", "JAVASCRIPT", "ETC"];
 
   const filteredPosts = selectedSubject
     ? posts.filter((post) => post.subject === selectedSubject)
     : posts;
+
+  const sortedPosts = filteredPosts
+    .slice()
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const handleSubjectChange = (subject: string | null) => {
     const url = subject ? `/?subject=${subject}` : "/";
@@ -60,10 +64,12 @@ export default function Blog() {
         </ul>
       </aside>
       <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredPosts.length > 0 ? (
-          filteredPosts.map((post) => <PostCard key={post.id} {...post} />)
+        {sortedPosts.length > 0 ? (
+          sortedPosts.map((post) => <PostCard key={post.id} {...post} />)
         ) : (
-          <p className="text-gray-400">해당 주제의 글이 없습니다.</p>
+          <p className="text-gray-400 text-center">
+            해당 주제의 글이 없습니다.
+          </p>
         )}
       </section>
     </main>
