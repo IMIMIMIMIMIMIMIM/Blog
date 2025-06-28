@@ -6,7 +6,7 @@ type PostCardProps = {
   title: string;
   summary: string;
   date: string;
-  content: string;
+  //   content: string;
   thumbnail?: string;
 };
 
@@ -22,7 +22,7 @@ export default function PostCard({
       <article
         className="cursor-pointer bg-[#ffffff0a] rounded-xl shadow-md hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 ease-in-out
     transform opacity-0 translate-y-4 animate-fade-up flex flex-col h-full"
-        title={title}
+        // title={title}
       >
         {thumbnail && (
           <div className="mb-4 relative w-full h-48 rounded-t-xl overflow-hidden">
