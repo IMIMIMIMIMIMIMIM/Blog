@@ -1,32 +1,26 @@
-import { getPosts } from "@/app/lib/posts";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { getPostById, getPosts } from "@/app/lib/posts";
 
-type Params = {
-  params: {
-    id: string;
-  };
-};
+type Params = { params: { id: string } };
 
-export default async function PostPage({ params }: Params) {
-  const posts = getPosts();
-  const currentIndex = posts.findIndex((p) => p.id.toString() === params.id);
-  if (currentIndex === -1) {
-    notFound(); // 404 페이지
-  }
+export async function generateStaticParams() {
+  const posts = await getPosts(); // await 추가
+  return posts.map((post) => ({ id: post.id.toString() }));
+}
 
-  const post = posts[currentIndex];
+export default async function PostPage(props: Params) {
+  const { params } = props; // 구조분해 할당으로 꺼냄
+  const id = parseInt(params.id, 10);
+  const post = await getPostById(id);
 
-  // 같은 카테고리 글 필터링 (현재 글의 subject와 동일한 글들)
+  if (!post) notFound();
+
+  const posts = await getPosts(); // await 추가
   const sameCategoryPosts = posts.filter((p) => p.subject === post.subject);
-
-  // 현재 글의 인덱스를 같은 카테고리 글 배열에서 찾기
-  const currentCategoryIndex = sameCategoryPosts.findIndex(
-    (p) => p.id === post.id
-  );
-
-  const prevPost = sameCategoryPosts[currentCategoryIndex - 1];
-  const nextPost = sameCategoryPosts[currentCategoryIndex + 1];
+  const currentIndex = sameCategoryPosts.findIndex((p) => p.id === id);
+  const prevPost = sameCategoryPosts[currentIndex - 1];
+  const nextPost = sameCategoryPosts[currentIndex + 1];
 
   return (
     <main className="min-h-screen p-8">
@@ -39,11 +33,10 @@ export default async function PostPage({ params }: Params) {
             {new Date(post.date).getDate()}
           </p>
         )}
-        {post.content && (
-          <section className="pt-6 leading-loose first-line:indent-4 whitespace-pre-line text-gray-200">
-            {post.content}
-          </section>
-        )}
+        <section
+          className="pt-6 leading-loose first-line:indent-4 whitespace-pre-line text-gray-200"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
       </article>
 
       <nav className="max-w-3xl mx-auto mt-8 flex flex-col text-sm text-gray-400 space-y-1.5">
@@ -57,11 +50,9 @@ export default async function PostPage({ params }: Params) {
         ) : (
           <div className="order-1" />
         )}
-
         <div className="font-bold text-white order-2 underline">
           {post.title}
         </div>
-
         {prevPost ? (
           <Link
             href={`/posts/${prevPost.id}`}
