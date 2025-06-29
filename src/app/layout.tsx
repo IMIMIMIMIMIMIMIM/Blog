@@ -1,6 +1,8 @@
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { maruburi } from "../../public/fonts/MaruBuri";
+import { continuous } from "../../public/fonts/continuous";
 
 export const metadata = {
   title: "IM",
@@ -13,10 +15,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="ko" className={`${continuous.variable} ${maruburi.variable}`}>
       <body className="antialiased bg-[#111111] text-white min-h-screen">
         <Header />
-        <main className="min-h-screen p-8 flex flex-col">{children}</main>
+        <main className="min-h-screen flex flex-col font-maruburi">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

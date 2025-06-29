@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         MaruBuri: ["Maruburi", "sans-serif"],
+        continuous: ["continuous", "sans-serif"],
       },
     },
   },

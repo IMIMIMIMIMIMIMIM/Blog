@@ -6,7 +6,6 @@ type PostCardProps = {
   title: string;
   summary: string;
   date: string;
-  content: string;
   thumbnail?: string;
 };
 
