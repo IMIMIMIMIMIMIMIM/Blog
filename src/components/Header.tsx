@@ -7,9 +7,9 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="w-full bg-[#1c1c1c] text-white shadow-md">
+    <header className="w-full h-20 fixed z-10 bg-[#1c1c1c] text-white shadow-md">
       <nav className="flex items-center justify-between p-6">
-        <Link href="/" className="text-3xl font-bold hover:text-gray-300">
+        <Link href="/" className="text-3xl font-continuous hover:text-gray-300">
           HI! IM
         </Link>
 
