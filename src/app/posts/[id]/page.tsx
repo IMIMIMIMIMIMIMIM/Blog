@@ -23,7 +23,7 @@ export default async function PostPage(props: Params) {
   const nextPost = sameCategoryPosts[currentIndex + 1];
 
   return (
-    <main className="min-h-screen p-8">
+    <main className="min-h-screen px-8 py-20">
       <article className="max-w-3xl mx-auto p-8 rounded-lg shadow-md space-y-4">
         <h1 className="text-5xl font-bold text-center">{post.title}</h1>
         {post.date && (

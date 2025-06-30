@@ -45,19 +45,22 @@ export default function Blog({ posts }: BlogClientProps) {
   });
 
   return (
-    <main className="flex pt-20 py-24">
+    <main className="flex pt-20">
       <aside
-        className={`w-50 fixed md:border-r-2 p-4 h-full
+        className={`w-50 fixed md:border-r-1 border-gray-300 px-4 py-8 h-full
         transform transition-transform duration-300 ease-in-out
            md:translate-x-0 bg-[#111111]
           ${menuOpen ? "translate-x-0" : "-translate-x-full"}
-    z-10
+    z-20
   `}
       >
         <ul className="space-y-2">
           <li>
             <button
-              onClick={() => handleSubjectChange(null)}
+              onClick={() => {
+                handleSubjectChange(null);
+                setMenuOpen(false);
+              }}
               className={`text-left w-full ${
                 !selectedSubject
                   ? "text-yellow-400 font-bold"
@@ -71,7 +74,10 @@ export default function Blog({ posts }: BlogClientProps) {
           {subjectCounts.map(({ subject, count }) => (
             <li key={subject}>
               <button
-                onClick={() => handleSubjectChange(subject)}
+                onClick={() => {
+                  handleSubjectChange(subject);
+                  setMenuOpen(false);
+                }}
                 className={`text-left w-full ${
                   selectedSubject === subject
                     ? "text-yellow-400 font-bold"
@@ -107,11 +113,11 @@ export default function Blog({ posts }: BlogClientProps) {
       {menuOpen && (
         <div
           onClick={() => setMenuOpen(false)}
-          className="fixed inset-0 z-30 md:hidden"
-        />
+          className="fixed inset-0 z-10 md:hidden"
+        ></div>
       )}
 
-      <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ml-0 md:ml-60 p-4">
+      <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ml-0 md:ml-60 px-4 py-10 md:p-4">
         {sortedPosts.length > 0 ? (
           sortedPosts.map((post) => <PostCard key={post.id} {...post} />)
         ) : (
