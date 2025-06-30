@@ -5,8 +5,8 @@ import { maruburi } from "../../public/fonts/MaruBuri";
 import { continuous } from "../../public/fonts/continuous";
 
 export const metadata = {
-  title: "IM",
-  description: "Blog my IM",
+  title: "Blog by IM",
+  description: "Blog by IM",
 };
 
 export default function RootLayout({
