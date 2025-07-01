@@ -1,4 +1,3 @@
-// app/about/page.tsx
 "use client";
 
 import { useEffect } from "react";
@@ -8,11 +7,9 @@ export default function About() {
   useEffect(() => {
     const originalClass = document.body.className;
 
-    // 페이지 진입 시 body 클래스를 덮어씀
     document.body.className =
-      "antialiased bg-[#111111] text-white h-screen overflow-hidden";
+      "antialiased bg-[#111111] text-white h-screen overflow-y-hidden";
 
-    // 페이지 이탈 시 원래대로 복원
     return () => {
       document.body.className = originalClass;
     };

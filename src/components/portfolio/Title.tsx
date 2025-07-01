@@ -1,30 +1,51 @@
 import { useEffect, useState } from "react";
 
 const Title = () => {
-  const [text, setText] = useState("");
-  const fullText =
-    "대화를 좋아하고 \n상상을 현실로 만드는 것을 즐기는 편입니다.\n개발을 통해 \n사용자와의 연결고리를 만드는 것\n그리고 그 과정에서 \n끊임없이 성장해 나가는 것을 추구합니다.\n번뜩이는 아이디어와 \n재치있는 센스를 \n양껏 발휘해보겠습니다.";
-  const typingSpeed = 60; // 타이핑 속도 (ms)
+  const text = "who am I ?";
+  const [visibleCount, setVisibleCount] = useState(0);
 
   useEffect(() => {
-    let index = 0;
-    const intervalId = setInterval(() => {
-      if (index < fullText.length) {
-        setText(fullText.slice(0, index + 1));
-        index++;
-      } else {
-        clearInterval(intervalId);
-      }
-    }, typingSpeed);
-    return () => clearInterval(intervalId);
-  }, []);
+    if (visibleCount < text.length) {
+      const timeout = setTimeout(() => {
+        setVisibleCount(visibleCount + 1);
+      }, 10); // 글자별 등장 속도 조절
+      return () => clearTimeout(timeout);
+    }
+  }, [visibleCount, text.length]);
 
   return (
-    <div className="h-screen overflow-auto flex justify-center items-center pt-20">
-      <h1 className="md:text-2xl font-bold text-left whitespace-pre-line md:leading-relaxed">
-        {text}
-        <span className="animate-blink">|</span>
+    <div className="h-screen relative flex justify-center items-center">
+      <h1 className="text-3xl font-bold flex select-none">
+        {text.split("").map((char, index) => (
+          <span
+            key={index}
+            className={`inline-block transition-opacity duration-100 ease-out ${
+              index < visibleCount ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ transitionDelay: `${index * 10}ms` }} // 글자별 딜레이
+          >
+            {char === " " ? "\u00A0" : char}
+          </span>
+        ))}
       </h1>
+
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+        <svg
+          className="w-8 h-8 text-gray-400"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 9l-7 7-7-7"
+          ></path>
+        </svg>
+      </div>
     </div>
   );
 };

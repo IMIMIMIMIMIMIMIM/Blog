@@ -45,7 +45,7 @@ const Tech = () => {
   }, []);
 
   return (
-    <div className="h-screen mt-20 flex flex-col justify-center items-center font-cafe24">
+    <div className="h-screen mt-20 flex flex-col justify-center items-center ">
       <div
         ref={personalRef}
         className={`flex flex-col items-center my-2 md:mb-[-30px] transition-transform duration-700 ${
