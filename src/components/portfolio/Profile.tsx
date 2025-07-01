@@ -1,7 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 
 const Profile = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [personalVisible, setPersonalVisible] = useState(false);
+  const [experienceVisible, setExperienceVisible] = useState(false);
+
   const personalRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
 
@@ -10,7 +12,7 @@ const Profile = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setIsVisible(true); // 슬라이드 애니메이션을 트리거
+            setPersonalVisible(true);
           }
         });
       },
@@ -18,22 +20,28 @@ const Profile = () => {
     );
 
     if (personalRef.current) observer.observe(personalRef.current);
-    if (experienceRef.current) observer.observe(experienceRef.current);
 
     return () => {
       if (personalRef.current) observer.unobserve(personalRef.current);
-      if (experienceRef.current) observer.unobserve(experienceRef.current);
     };
   }, []);
 
+  useEffect(() => {
+    if (personalVisible) {
+      const timer = setTimeout(() => {
+        setExperienceVisible(true);
+      }, 300);
+
+      return () => clearTimeout(timer);
+    }
+  }, [personalVisible]);
+
   return (
-    <div className="h-screen flex flex-col justify-center items-center font-cafe24 pt-20">
+    <div className="h-screen flex flex-col justify-center items-center  pt-20 space-y-8">
       <div
         ref={personalRef}
-        className={`flex flex-col items-center my-2 transition-transform duration-700 ${
-          isVisible
-            ? "opacity-100 sm:translate-x-0 translate-x-0 md:translate-x-0"
-            : "opacity-0 sm:translate-x-0 translate-x-[-50%] md:translate-x-[-150%]"
+        className={`flex flex-col items-center my-2 transition-opacity duration-700 ${
+          personalVisible ? "opacity-100" : "opacity-0"
         }`}
       >
         <div className="relative border-2 border-gray-400 rounded-lg p-12 text-center my-5 bg-[#111111]">
@@ -52,10 +60,8 @@ const Profile = () => {
 
       <div
         ref={experienceRef}
-        className={`flex flex-col items-center my-2 transition-transform duration-700 ${
-          isVisible
-            ? "opacity-100 sm:translate-x-0 translate-x-0 md:translate-x-0"
-            : "opacity-0 sm:translate-x-0 translate-x-[50%] md:translate-x-[150%]"
+        className={`flex flex-col items-center my-2 transition-opacity duration-700 ${
+          experienceVisible ? "opacity-100" : "opacity-0"
         }`}
       >
         <div className="relative border-2 border-gray-400 rounded-lg p-8 text-center my-5 bg-[#111111]">
