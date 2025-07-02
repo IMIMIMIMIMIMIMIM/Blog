@@ -52,7 +52,7 @@ const Finish = () => {
           visibleWords > words.length ? "opacity-100" : "opacity-0"
         }`}
       >
-        man's dreams never end
+        man&apos;s dreams never end
       </p>
     </div>
   );

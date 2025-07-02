@@ -20,7 +20,7 @@ export default function Header() {
         <ul className="hidden items-center md:flex space-x-8 text-lg">
           <li>
             <Link href="/im" className="hover:text-gray-300">
-              I'M
+              I&apos;M
             </Link>
           </li>
           <li>

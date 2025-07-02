@@ -35,7 +35,7 @@ const Project = ({
   const [selectedProject, setSelectedProject] = useState<ProjectTypes | null>(
     null
   );
-  const [modalPage, setModalPage] = useState(0);
+  const [_, setModalPage] = useState(0);
   const [visibleIndexes, setVisibleIndexes] = useState<number[]>([]);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
