@@ -79,7 +79,7 @@ export default function Header() {
           className="block border-b border-white px-2 pb-4"
           onClick={() => setMenuOpen(false)}
         >
-          I'm
+          I&apos;m
         </Link>
         <Link
           href="https://github.com/IMIMIMIMIMIMIMIM"

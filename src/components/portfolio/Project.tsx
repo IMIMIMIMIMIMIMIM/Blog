@@ -35,7 +35,7 @@ const Project = ({
   const [selectedProject, setSelectedProject] = useState<ProjectTypes | null>(
     null
   );
-  const [_, setModalPage] = useState(0);
+  const [, setModalPage] = useState(0);
   const [visibleIndexes, setVisibleIndexes] = useState<number[]>([]);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -101,26 +101,27 @@ const Project = ({
   ];
 
   useEffect(() => {
+    const current = containerRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          projects.forEach((_, index) => {
+          const newIndexes = projects.map((_, index) => index);
+          newIndexes.forEach((idx, i) => {
             setTimeout(() => {
-              setVisibleIndexes((prev) => [...prev, index]);
-            }, index * 250);
+              setVisibleIndexes((prev) => [...prev, idx]);
+            }, i * 250);
           });
         }
       },
       { threshold: 0.3 }
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+    if (current) {
+      observer.observe(current);
     }
-
     return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
+      if (current) {
+        observer.unobserve(current);
       }
     };
   }, []);

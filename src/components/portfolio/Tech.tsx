@@ -22,8 +22,10 @@ const Tech = () => {
   const [isVisible, setIsVisible] = useState(false);
   const personalRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
+    const personalCurrent = personalRef.current;
+    const experienceCurrent = experienceRef.current;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -32,15 +34,39 @@ const Tech = () => {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     );
 
-    if (personalRef.current) observer.observe(personalRef.current);
-    if (experienceRef.current) observer.observe(experienceRef.current);
+    if (personalCurrent) observer.observe(personalCurrent);
+    if (experienceCurrent) observer.observe(experienceCurrent);
 
     return () => {
-      if (personalRef.current) observer.unobserve(personalRef.current);
-      if (experienceRef.current) observer.unobserve(experienceRef.current);
+      if (personalCurrent) observer.unobserve(personalCurrent);
+      if (experienceCurrent) observer.unobserve(experienceCurrent);
+    };
+  }, []);
+
+  useEffect(() => {
+    const personalCurrent = personalRef.current;
+    const experienceCurrent = experienceRef.current;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (personalCurrent) observer.observe(personalCurrent);
+    if (experienceCurrent) observer.observe(experienceCurrent);
+
+    return () => {
+      if (personalCurrent) observer.unobserve(personalCurrent);
+      if (experienceCurrent) observer.unobserve(experienceCurrent);
     };
   }, []);
 

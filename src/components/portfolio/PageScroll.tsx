@@ -1,4 +1,11 @@
-import { useState, useRef, TouchEvent, WheelEvent, useEffect } from "react";
+import {
+  useState,
+  useRef,
+  TouchEvent,
+  WheelEvent,
+  useEffect,
+  useCallback,
+} from "react";
 import Title from "./Title";
 import Profile from "./Profile";
 import Tech from "./Tech";
@@ -12,31 +19,34 @@ const PageScroll = () => {
   const scrollLockRef = useRef(false);
   const touchStartY = useRef<number | null>(null);
 
-  const sections = [
-    <Title />,
-    <Intro />,
-    <Tech />,
-    <Project onModalChange={setIsModalOpen} />,
-    <Profile />,
-    <Finish />,
+  const sectionComponents = [
+    { key: "title", component: <Title /> },
+    { key: "intro", component: <Intro /> },
+    { key: "tech", component: <Tech /> },
+    { key: "project", component: <Project onModalChange={setIsModalOpen} /> },
+    { key: "profile", component: <Profile /> },
+    { key: "finish", component: <Finish /> },
   ];
 
-  const scrollToSection = (nextSection: number) => {
-    if (scrollLockRef.current || isModalOpen) return;
-    scrollLockRef.current = true;
+  const scrollToSection = useCallback(
+    (nextSection: number) => {
+      if (scrollLockRef.current || isModalOpen) return;
+      scrollLockRef.current = true;
 
-    setSection(() => {
-      const newSection = Math.max(
-        0,
-        Math.min(nextSection, sections.length - 1)
-      );
-      return newSection;
-    });
+      setSection(() => {
+        const newSection = Math.max(
+          0,
+          Math.min(nextSection, sectionComponents.length - 1)
+        );
+        return newSection;
+      });
 
-    setTimeout(() => {
-      scrollLockRef.current = false;
-    }, 700);
-  };
+      setTimeout(() => {
+        scrollLockRef.current = false;
+      }, 700);
+    },
+    [isModalOpen, sectionComponents.length]
+  );
 
   const handleScroll = (event: WheelEvent<HTMLDivElement>) => {
     if (Math.abs(event.deltaY) < 30) return;
@@ -68,7 +78,7 @@ const PageScroll = () => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [section, isModalOpen]);
+  }, [section, isModalOpen, scrollToSection]);
 
   return (
     <div
@@ -81,12 +91,9 @@ const PageScroll = () => {
         className="transition-transform duration-700"
         style={{ transform: `translateY(-${section * 100}vh)` }}
       >
-        {sections.map((Section, index) => (
-          <div
-            key={index}
-            className="h-screen flex justify-center items-center"
-          >
-            {Section}
+        {sectionComponents.map(({ key, component }) => (
+          <div key={key} className="h-screen flex justify-center items-center">
+            {component}
           </div>
         ))}
       </div>

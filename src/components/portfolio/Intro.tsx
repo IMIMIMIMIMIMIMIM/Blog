@@ -11,15 +11,17 @@ const Intro = () => {
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    const currentRef = containerRef.current;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !intervalIdRef.current) {
           let index = 0;
           intervalIdRef.current = setInterval(() => {
-            setText((prev) => {
+            setText(() => {
               const next = fullText.slice(0, index + 1);
               if (index >= fullText.length - 1) {
-                clearInterval(intervalIdRef.current!);
+                if (intervalIdRef.current) clearInterval(intervalIdRef.current);
                 setIsTypingDone(true);
               }
               index++;
@@ -31,12 +33,10 @@ const Intro = () => {
       { threshold: 0.3 }
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
+    if (currentRef) observer.observe(currentRef);
 
     return () => {
-      if (containerRef.current) observer.unobserve(containerRef.current);
+      if (currentRef) observer.unobserve(currentRef);
       if (intervalIdRef.current) clearInterval(intervalIdRef.current);
     };
   }, []);

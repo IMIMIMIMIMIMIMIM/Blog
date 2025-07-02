@@ -8,6 +8,7 @@ const Profile = () => {
   const experienceRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const currentPersonalRef = personalRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -16,13 +17,13 @@ const Profile = () => {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     );
 
-    if (personalRef.current) observer.observe(personalRef.current);
+    if (currentPersonalRef) observer.observe(currentPersonalRef);
 
     return () => {
-      if (personalRef.current) observer.unobserve(personalRef.current);
+      if (currentPersonalRef) observer.unobserve(currentPersonalRef);
     };
   }, []);
 
