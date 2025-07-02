@@ -42,7 +42,6 @@ export async function getPosts(): Promise<Omit<Post, "content">[]> {
   return posts.sort((a, b) => a.id - b.id);
 }
 
-// id로 특정 포스트 불러오기 (content는 마크다운 -> HTML 변환 포함)
 export async function getPostById(id: number): Promise<Post | null> {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   try {
@@ -62,7 +61,6 @@ export async function getPostById(id: number): Promise<Post | null> {
       content: contentHtml,
     };
   } catch (error) {
-    // 파일이 없거나 읽기 실패 시 null 반환
     return null;
   }
 }

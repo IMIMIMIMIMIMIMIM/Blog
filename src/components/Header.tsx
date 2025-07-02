@@ -9,16 +9,18 @@ export default function Header() {
   return (
     <header className="w-full fixed z-30 bg-[#1c1c1c] text-white">
       <nav className="flex relative h-20 bg-[#1c1c1c] items-center justify-between p-6 z-30">
-        <Link
-          href="/"
-          className="text-3xl font-continuous hover:text-gray-300 align-middle"
-        >
-          HI! IM
-        </Link>
+        <div className="flex items-center h-20">
+          <Link
+            href="/"
+            className="flex text-3xl font-continuous hover:text-gray-300 align-middle"
+          >
+            HI! IM
+          </Link>
+        </div>
         <ul className="hidden items-center md:flex space-x-8 text-lg">
           <li>
             <Link href="/im" className="hover:text-gray-300">
-              I'M
+              I&apos;M
             </Link>
           </li>
           <li>

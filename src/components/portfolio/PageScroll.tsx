@@ -25,7 +25,7 @@ const PageScroll = () => {
     if (scrollLockRef.current || isModalOpen) return;
     scrollLockRef.current = true;
 
-    setSection((prev) => {
+    setSection(() => {
       const newSection = Math.max(
         0,
         Math.min(nextSection, sections.length - 1)
