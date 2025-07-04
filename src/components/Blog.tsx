@@ -92,21 +92,37 @@ export default function Blog({ posts }: BlogClientProps) {
         <button
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-label="Toggle menu"
-          className="md:hidden bg-[#111111] block absolute -right-14 top-0 z-50 p-4 border-b-gray-400 border-b-x-gray-400 rounded-br-md"
+          className="md:hidden bg-[#111111] block absolute -right-14 top-0 z-50 p-4 border-b border-r border-gray-300 rounded-br-md"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
+          {menuOpen ? (
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          ) : (
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          )}
         </button>
       </aside>
 

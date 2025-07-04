@@ -8,6 +8,7 @@ export const slack = "/assets/images/slack.svg";
 export const styledcomponent = "/assets/images/styled-components.svg";
 export const tailwindcss = "/assets/images/tailwindcss.svg";
 export const typescript = "/assets/images/typescript.svg";
+export const next = "/assets/images/next.svg";
 export const vanillaextract = "/assets/images/vanilla-extract.svg";
 export const zustand = "/assets/images/zustand.svg";
 export const moon = "/assets/images/moon.svg";

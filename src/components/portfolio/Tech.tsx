@@ -4,6 +4,7 @@ import {
   github,
   html,
   javascript,
+  next,
   notion,
   prettier,
   react,
@@ -87,8 +88,8 @@ const Tech = () => {
           <div className="grid grid-cols-3 gap-4 text-xl">
             <div className="flex justify-center items-center bg-white rounded-md scale-110">
               <img
-                src={javascript}
-                alt="JavaScript"
+                src={react}
+                alt="React"
                 className="h-8 w-8 md:h-16 md:w-16 rounded-md scale-90"
               />
             </div>
@@ -101,22 +102,22 @@ const Tech = () => {
             </div>
             <div className="flex justify-center items-center bg-white rounded-md scale-110">
               <img
+                src={next}
+                alt="next"
+                className="h-8 w-8 md:h-16 md:w-16 rounded-md scale-90"
+              />
+            </div>
+            <div className="flex justify-center items-center bg-white rounded-md scale-110">
+              <img
+                src={javascript}
+                alt="JavaScript"
+                className="h-8 w-8 md:h-16 md:w-16 rounded-md scale-90"
+              />
+            </div>
+            <div className="flex justify-center items-center bg-white rounded-md scale-110">
+              <img
                 src={html}
                 alt="HTML"
-                className="h-8 w-8 md:h-16 md:w-16 rounded-md scale-90"
-              />
-            </div>
-            <div className="flex justify-center items-center bg-white rounded-md scale-110">
-              <img
-                src={react}
-                alt="React"
-                className="h-8 w-8 md:h-16 md:w-16 rounded-md scale-90"
-              />
-            </div>
-            <div className="flex justify-center items-center bg-white rounded-md scale-110">
-              <img
-                src={reacthookform}
-                alt="Reacthookform"
                 className="h-8 w-8 md:h-16 md:w-16 rounded-md scale-90"
               />
             </div>
