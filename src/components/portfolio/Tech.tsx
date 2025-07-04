@@ -4,10 +4,10 @@ import {
   github,
   html,
   javascript,
+  next,
   notion,
   prettier,
   react,
-  reacthookform,
   reactrouter,
   slack,
   styledcomponent,
@@ -22,8 +22,10 @@ const Tech = () => {
   const [isVisible, setIsVisible] = useState(false);
   const personalRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
+    const personalCurrent = personalRef.current;
+    const experienceCurrent = experienceRef.current;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -32,15 +34,39 @@ const Tech = () => {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     );
 
-    if (personalRef.current) observer.observe(personalRef.current);
-    if (experienceRef.current) observer.observe(experienceRef.current);
+    if (personalCurrent) observer.observe(personalCurrent);
+    if (experienceCurrent) observer.observe(experienceCurrent);
 
     return () => {
-      if (personalRef.current) observer.unobserve(personalRef.current);
-      if (experienceRef.current) observer.unobserve(experienceRef.current);
+      if (personalCurrent) observer.unobserve(personalCurrent);
+      if (experienceCurrent) observer.unobserve(experienceCurrent);
+    };
+  }, []);
+
+  useEffect(() => {
+    const personalCurrent = personalRef.current;
+    const experienceCurrent = experienceRef.current;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (personalCurrent) observer.observe(personalCurrent);
+    if (experienceCurrent) observer.observe(experienceCurrent);
+
+    return () => {
+      if (personalCurrent) observer.unobserve(personalCurrent);
+      if (experienceCurrent) observer.unobserve(experienceCurrent);
     };
   }, []);
 
@@ -61,8 +87,8 @@ const Tech = () => {
           <div className="grid grid-cols-3 gap-4 text-xl">
             <div className="flex justify-center items-center bg-white rounded-md scale-110">
               <img
-                src={javascript}
-                alt="JavaScript"
+                src={react}
+                alt="React"
                 className="h-8 w-8 md:h-16 md:w-16 rounded-md scale-90"
               />
             </div>
@@ -75,22 +101,22 @@ const Tech = () => {
             </div>
             <div className="flex justify-center items-center bg-white rounded-md scale-110">
               <img
+                src={next}
+                alt="next"
+                className="h-8 w-8 md:h-16 md:w-16 rounded-md scale-90"
+              />
+            </div>
+            <div className="flex justify-center items-center bg-white rounded-md scale-110">
+              <img
+                src={javascript}
+                alt="JavaScript"
+                className="h-8 w-8 md:h-16 md:w-16 rounded-md scale-90"
+              />
+            </div>
+            <div className="flex justify-center items-center bg-white rounded-md scale-110">
+              <img
                 src={html}
                 alt="HTML"
-                className="h-8 w-8 md:h-16 md:w-16 rounded-md scale-90"
-              />
-            </div>
-            <div className="flex justify-center items-center bg-white rounded-md scale-110">
-              <img
-                src={react}
-                alt="React"
-                className="h-8 w-8 md:h-16 md:w-16 rounded-md scale-90"
-              />
-            </div>
-            <div className="flex justify-center items-center bg-white rounded-md scale-110">
-              <img
-                src={reacthookform}
-                alt="Reacthookform"
                 className="h-8 w-8 md:h-16 md:w-16 rounded-md scale-90"
               />
             </div>

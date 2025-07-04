@@ -13,10 +13,9 @@ export type Post = {
   date: string;
   thumbnail?: string;
   subject: string;
-  content: string; // HTML로 변환된 본문
+  content: string;
 };
 
-// 모든 포스트 목록 불러오기 (메타데이터만, content는 빈 문자열)
 export async function getPosts(): Promise<Omit<Post, "content">[]> {
   const fileNames = await fs.readdir(postsDirectory);
   const filtered = fileNames.filter((name) => /^\d+\.md$/.test(name));
@@ -60,7 +59,7 @@ export async function getPostById(id: number): Promise<Post | null> {
       subject: data.subject ?? "",
       content: contentHtml,
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }

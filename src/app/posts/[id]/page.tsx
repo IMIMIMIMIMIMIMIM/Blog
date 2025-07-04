@@ -2,23 +2,27 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getPostById, getPosts } from "@/app/lib/posts";
 
-type Params = { params: { id: string } };
+type Params = {
+  params: Promise<{ id: string }>;
+};
 
 export async function generateStaticParams() {
-  const posts = await getPosts(); // await 추가
-  return posts.map((post) => ({ id: post.id.toString() }));
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    params: { id: post.id.toString() },
+  }));
 }
-
 export default async function PostPage(props: Params) {
-  const { params } = props; // 구조분해 할당으로 꺼냄
-  const id = parseInt(params.id, 10);
-  const post = await getPostById(id);
+  const { params } = props;
+  const { id } = await params;
+  const postId = parseInt(id, 10);
+  const post = await getPostById(postId);
 
   if (!post) notFound();
 
-  const posts = await getPosts(); // await 추가
+  const posts = await getPosts();
   const sameCategoryPosts = posts.filter((p) => p.subject === post.subject);
-  const currentIndex = sameCategoryPosts.findIndex((p) => p.id === id);
+  const currentIndex = sameCategoryPosts.findIndex((p) => p.id === postId);
   const prevPost = sameCategoryPosts[currentIndex - 1];
   const nextPost = sameCategoryPosts[currentIndex + 1];
 

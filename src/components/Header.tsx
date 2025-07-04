@@ -8,7 +8,7 @@ export default function Header() {
 
   return (
     <header className="w-full fixed z-30 bg-[#1c1c1c] text-white">
-      <nav className="flex relative h-20 bg-[#1c1c1c] items-center justify-between p-6 z-30">
+      <nav className="flex relative h-20 border-b border-gray-300 bg-[#1c1c1c] items-center justify-between p-6 z-30">
         <div className="flex items-center h-20">
           <Link
             href="/"
@@ -69,7 +69,7 @@ export default function Header() {
       </nav>
 
       <div
-        className={`fixed md:hidden left-0 right-0 top-20 bg-[#1c1c1c] px-6 py-4 space-y-4 text-lg z-20 text-center border-y border-white
+        className={`fixed md:hidden left-0 right-0 top-20 bg-[#1c1c1c] px-6 py-4 space-y-4 text-lg z-20 text-center border-b border-white
     transform transition-transform duration-300 ease-in-out
     ${menuOpen ? "translate-y-0" : "-translate-y-full"}
   `}
@@ -79,7 +79,7 @@ export default function Header() {
           className="block border-b border-white px-2 pb-4"
           onClick={() => setMenuOpen(false)}
         >
-          I'm
+          I&apos;m
         </Link>
         <Link
           href="https://github.com/IMIMIMIMIMIMIMIM"

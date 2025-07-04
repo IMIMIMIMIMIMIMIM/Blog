@@ -7,6 +7,7 @@ const Finish = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const currentRef = sectionRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setIsVisible(true);
@@ -14,9 +15,9 @@ const Finish = () => {
       { threshold: 0.3 }
     );
 
-    if (sectionRef.current) observer.observe(sectionRef.current);
+    if (currentRef) observer.observe(currentRef);
     return () => {
-      if (sectionRef.current) observer.unobserve(sectionRef.current);
+      if (currentRef) observer.unobserve(currentRef);
     };
   }, []);
 
@@ -28,7 +29,7 @@ const Finish = () => {
     }, 800);
 
     return () => clearTimeout(timeout);
-  }, [visibleWords, isVisible]);
+  }, [visibleWords, isVisible, words.length]);
 
   return (
     <div
