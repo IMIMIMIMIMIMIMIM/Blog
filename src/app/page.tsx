@@ -1,7 +1,13 @@
-export default function Home() {
+import Blog from "@/components/Blog";
+import { getPosts } from "./lib/posts";
+import { Suspense } from "react";
+
+export default async function Page() {
+  const posts = await getPosts();
+
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-100">
-      <h1 className="text-3xl font-bold text-blue-600">Hello Tailwind!</h1>
-    </main>
+    <Suspense>
+      <Blog posts={posts} />;
+    </Suspense>
   );
 }
