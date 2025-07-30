@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getPostById, getPosts } from "@/app/lib/posts";
+import "../../globals.css";
 
 type Params = {
   params: Promise<{ id: string }>;
@@ -38,7 +39,7 @@ export default async function PostPage(props: Params) {
           </p>
         )}
         <section
-          className="pt-6 leading-loose first-line:indent-4 whitespace-pre-line text-gray-200"
+          className="prose prose-invert max-w-none pt-6 leading-loose first-line:indent-4 whitespace-pre-line text-gray-200"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
       </article>
