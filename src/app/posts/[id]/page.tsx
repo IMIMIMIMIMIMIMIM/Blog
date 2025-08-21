@@ -39,7 +39,7 @@ export default async function PostPage(props: Params) {
           </p>
         )}
         <section
-          className="prose prose-invert max-w-none pt-6 leading-loose first-line:indent-4 whitespace-pre-line text-gray-200"
+          className="prose prose-invert max-w-none pt-6 leading-loose first-line:indent-4 whitespace-pre-line text-white"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
       </article>

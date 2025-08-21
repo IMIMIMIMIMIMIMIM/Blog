@@ -6,51 +6,56 @@ thumbnail: "/images/default.jpg"
 subject: "ETC"
 ---
 
-## tailwind를 사용하는 마크다운 블로그에서 #(해시태그)로 폰트 크기 변경하기
+### tailwind를 사용하는 마크다운 블로그에서 #(해시태그)로 폰트 크기 변경하기
 
-Next.js 블로그에서 마크다운을 사용하다 보면 `# 제목` 문법으로 폰트 크기를 키우려고 했는데  
-실제로는 크기가 전혀 달라지지 않는 경우를 경험할 수 있다  
+Next.js 블로그를 만들면서 마크다운으로 글을 작성할 때 `# 제목` 문법을 사용했는데,
+폰트 크기가 전혀 달라지지 않는 문제를 겪었다.  
 이 글에서는 그 이유와 해결 방법을 정리한다
 
 ---
 
 ## 1. 마크다운의 `#`은 의미만 부여하고 스타일은 CSS에 달려 있다
 
-마크다운에서 `#`, `##`, `###` 등의 문법은 각각 `<h1>`, `<h2>`, `<h3>`로 변환된다  
-하지만 실제 폰트 크기를 바꾸는 것은 CSS 스타일링의 역할이다
+마크다운에서 `#`, `##`, `###` 등의 문법은 각각 `<h1>`, `<h2>`, `<h3>` HTML 태그로 변환된다.  
+하지만 실제 폰트 크기를 바꾸는 것은 CSS 스타일링의 역할이다.
 
-즉 마크다운 문법은 "이건 제목이다"라는 의미만 주고  
-어떻게 보일지는 브라우저에 적용된 CSS 스타일에 따라 결정된다
+즉 마크다운 문법은 "이건 제목이다"라는 의미만 부여하고,  
+어떻게 보일지는 브라우저에 적용된 CSS 스타일에 따라 결정된다.
 
 ---
 
 ## 2. 스타일이 초기화된 환경에서는 크기 차이가 사라진다
 
-Next.js 블로그에서는 tailwindcss나 reset.css 등을 사용하는 경우  
-`h1`, `h2` 등의 기본 스타일이 초기화되거나 동일하게 설정될 수 있다
+Next.js 블로그에서는 tailwindcss나 reset.css 등을 사용하는 경우가 많다.  
+이때 `h1`, `h2` 등의 기본 스타일이 초기화되거나 동일하게 설정될 수 있다.
 
-이 경우 아무리 `# 제목`을 써도 모든 제목이 같은 크기로 보인다
+이 경우 아무리 `# 제목`을 써도 모든 제목이 같은 크기로 보이게 된다.
 
 ---
 
 ## 3. 해결 방법
 
-### ✅ Tailwind CSS를 사용하는 경우
+### ✅ Tailwind CSS v4를 사용하는 경우
+
+먼저 typography 플러그인을 설치한다:
 
 ```bash
 npm install @tailwindcss/typography
 ```
 
-tailwind.config.js 설정
+그 다음 CSS 파일에서 플러그인을 로드한다:
 
-```bash
-plugins: [require('@tailwindcss/typography')]
+```css
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 ```
 
-컴포넌트 적용 예시
+마지막으로 컴포넌트에 prose 클래스를 적용한다:
 
-```js
+```jsx
 <div className="prose">
-  <MarkdownRenderer />
+  <Markdown />
 </div>
 ```
+
+**중요:** Tailwind CSS v4에서는 플러그인을 `tailwind.config.mjs`가 아닌 CSS 파일에서 `@plugin` 지시문으로 로드해야 한다!
