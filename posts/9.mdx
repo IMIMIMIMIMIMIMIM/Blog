@@ -1,0 +1,74 @@
+---
+title: "React Compiler: 차세대 React 최적화"
+summary: "React 자동 메모이제이션?"
+date: "2025-08-29"
+thumbnail: "/images/compiler.jpg"
+subject: "REACT"
+---
+
+## React 최적화의 과거
+
+React 애플리케이션을 만들면서 가장 많이 하는 최적화는 `useMemo`와 `useCallback`이다.
+하지만 이러한 훅은 코드 가독성을 해치고 불필요하게 남용되는 경우가 많았다.
+
+```tsx
+const App = () => {
+  const [count, setCount] = useState(0);
+
+  const handleClick = useCallback(() => {
+    setCount((c) => c + 1);
+  }, []);
+
+  return <button onClick={handleClick}>{count}</button>;
+};
+```
+
+위 코드에서 `useCallback`은 불필요할 수도 있다. 최적화가 필요 없는 상황임에도 습관적으로 사용하는 경우가 흔하다.
+
+## React Compiler의 등장
+
+React 19에서 도입된 **React Compiler**는 이런 문제를 해결한다.
+컴파일러가 렌더링 과정에서 자동으로 **메모화 가능한 부분을 최적화**해주기 때문에 `useMemo`와 `useCallback`을 최소화할 수 있다.
+
+즉, 개발자가 신경 쓰지 않아도 렌더링이 반복되더라도 불필요한 함수 재생성이 줄어든다.
+
+## 실제 코드 비교
+
+기존 방식:
+
+```tsx
+const List = ({ items }) => {
+  const renderedItems = useMemo(() => {
+    return items.map((item) => <li key={item.id}>{item.text}</li>);
+  }, [items]);
+
+  return <ul>{renderedItems}</ul>;
+};
+```
+
+React Compiler 도입 후:
+
+```tsx
+const List = ({ items }) => {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>{item.text}</li>
+      ))}
+    </ul>
+  );
+};
+```
+
+결과는 동일하지만 코드가 훨씬 단순해진다.
+
+## 주의할 점
+
+    - React Compiler는 모든 최적화를 자동으로 보장하지 않는다.
+    - 비순수 함수나 외부 환경에 의존하는 연산은 여전히 수동 최적화가 필요하다.
+    - 초기에는 특정 빌드 도구나 설정이 필요할 수 있다.
+
+## 결론
+
+React Compiler는 코드 단순화를 통해 생산성과 성능을 동시에 잡는 도구다.
+앞으로는 `useMemo`, `useCallback`을 최소한으로만 쓰고 React Compiler의 자동 최적화에 의존하는 방향으로 개발이 바뀔 가능성이 크다.
