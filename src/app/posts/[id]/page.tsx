@@ -28,11 +28,13 @@ export default async function PostPage(props: Params) {
   const nextPost = sameCategoryPosts[currentIndex + 1];
 
   return (
-    <main className="min-h-screen px-8 py-20">
+    <main className="min-h-screen px-0 md:px-8 py-20">
       <article className="max-w-3xl mx-auto p-8 rounded-lg shadow-md space-y-4">
-        <h1 className="text-5xl font-bold text-center">{post.title}</h1>
+        <h1 className="text-3xl md:text-5xl font-bold text-center">
+          {post.title}
+        </h1>
         {post.date && (
-          <p className="flex justify-end border-b border-gray-600 p-4 text-sm text-gray-400">
+          <p className="flex justify-end border-b border-gray-600 p-4 text-xs md:text-sm text-gray-400">
             {new Date(post.date).getFullYear()}.{" "}
             {new Date(post.date).getMonth() + 1}.{" "}
             {new Date(post.date).getDate()}
@@ -44,7 +46,7 @@ export default async function PostPage(props: Params) {
         />
       </article>
 
-      <nav className="max-w-3xl mx-auto mt-8 flex flex-col text-sm text-gray-400 space-y-1.5">
+      <nav className="max-w-3xl px-8 mx-auto mt-8 flex flex-col text-sm text-gray-400 space-y-1.5">
         {nextPost ? (
           <Link
             href={`/posts/${nextPost.id}`}
