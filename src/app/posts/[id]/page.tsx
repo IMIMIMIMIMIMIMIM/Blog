@@ -22,7 +22,11 @@ export default async function PostPage(props: Params) {
   if (!post) notFound();
 
   const posts = await getPosts();
-  const sameCategoryPosts = posts.filter((p) => p.subject === post.subject);
+  const sameCategoryPosts = posts.filter((p) =>
+    p.subject
+      .split(",")
+      .some((subject) => post.subject.split(",").includes(subject))
+  );
   const currentIndex = sameCategoryPosts.findIndex((p) => p.id === postId);
   const prevPost = sameCategoryPosts[currentIndex - 1];
   const nextPost = sameCategoryPosts[currentIndex + 1];

@@ -27,7 +27,7 @@ export default function Blog({ posts }: BlogClientProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const filteredPosts = selectedSubject
-    ? posts.filter((post) => post.subject === selectedSubject)
+    ? posts.filter((post) => post.subject.split(",").includes(selectedSubject))
     : posts;
 
   const sortedPosts = filteredPosts
@@ -40,7 +40,9 @@ export default function Blog({ posts }: BlogClientProps) {
   };
 
   const subjectCounts = subjects.map((subject) => {
-    const count = posts.filter((post) => post.subject === subject).length;
+    const count = posts.filter((post) =>
+      post.subject.split(",").includes(subject)
+    ).length;
     return { subject, count };
   });
 
